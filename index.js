@@ -7,6 +7,8 @@ const Intern = require("./lib/Intern");
 const managerArr = [];
 const engineerArr = [];
 const internArr = [];
+const htmlEngineer = [];
+const htmlIntern = [];
 // prompt for manager
 const makeManager = () => {
     // GIVEN a command-line application that accepts user input
@@ -132,30 +134,41 @@ const makeEmployee = (employeeType) => {
             });
     }
 };
-
+// THEN an HTML file is generated that displays a nicely formatted team roster based on user input
 const makeHTML = () => {
-    const boilerPlate = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <title>My Team</title>
-    </head>
-    <body>
-    <header>
-    <h1 class="bg-danger p-5 text-center text-white">My Team</h1>
-    </header>
-    <section class="container">
-    <div class="d-flex flex-wrap justify-content-center">`
-    // write the boilerplate html 
-    fs.writeFile('index.html', boilerPlate, (err) =>
-        err ? console.error(err) : console.log('Created index.html'));
+    const htmlText =
+`<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<title>My Team</title>
+</head>
+<body>
+<header>
+<h1 class="bg-danger p-5 text-center text-white">My Team</h1>
+</header>
+<section class="container">
+<div class="d-flex flex-wrap justify-content-center">
+${appendManager()}
+${appendEngineer()}
+${appendIntern()}
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+crossorigin="anonymous"></script>
+</body>
+</html>`
+    fs.writeFile('index.html', htmlText, (err) =>
+        err ? console.error(err) : console.log("wrote to HTML"));
+}
 
+const appendManager = () => {
     const managerCard = `
     <div class="card p-0 m-2 shadow" style="width: 18rem;">
     <div class="card-header bg-primary text-white">
@@ -170,69 +183,61 @@ const makeHTML = () => {
     </ul>
     </div>
     </div>`
-    fs.appendFile('./index.html', managerCard, (err) =>
-        err ? console.error(err) : console.log('Created manager card'));
-
-    if (engineerArr.length > 0) {
-        for (let i = 0; i < engineerArr.length; i++) {
-            const engineerCard = `
-            <div class="card p-0 m-2 shadow" style="width: 18rem;">
-            <div class="card-header bg-primary text-white">
-            <h5 class="card-title">${engineerArr[i][0].name}</h5>
-            <h6 class="card-title"><i class="fa-solid fa-glasses me-2"></i>${engineerArr[i][0].constructor.name}</h6>
-            </div>
-            <div class="card-body bg-light">
-            <ul class="list-group list-group-flush border">
-            <li class="list-group-item">ID: ${engineerArr[i][0].id}</li>
-            <li class="list-group-item">Email: <a href="mailto: ${engineerArr[i][0].email}">${engineerArr[i][0].email}</a></li>
-            <li class="list-group-item">GitHub: <a href="https://github.com/${engineerArr[i][0].github}" target="_blank">${engineerArr[i][0].github}</a></li>
-            </ul>
-            </div>
-            </div>`
-            fs.appendFile('./index.html', engineerCard, (err) =>
-                err ? console.error(err) : console.log('Created engineer card'));
-        }
-    }
-
-    if (internArr.length > 0) {
-        for (let i = 0; i < internArr.length; i++) {
-            const internCard = `
-            <div class="card p-0 m-2 shadow" style="width: 18rem;">
-            <div class="card-header bg-primary text-white">
-            <h5 class="card-title">${internArr[i][0].name}</h5>
-            <h6 class="card-title"><i class="fa-solid fa-user-graduate me-2"></i>${internArr[i][0].constructor.name}</h6>
-            </div>
-            <div class="card-body bg-light">
-            <ul class="list-group list-group-flush border">
-            <li class="list-group-item">ID: ${internArr[i][0].id}</li>
-            <li class="list-group-item">Email: <a href="mailto: ${internArr[i][0].email}">${internArr[i][0].email}</a></li>
-            <li class="list-group-item">School: ${internArr[i][0].school}</li>
-            </ul>
-            </div>
-            </div>`
-            fs.appendFile('./index.html', internCard, (err) =>
-                err ? console.error(err) : console.log('Created intern card'));
-        }
-    }
-    
-    const htmlEnd = `
-    </div>
-    </section>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-    crossorigin="anonymous"></script>
-    </body>
-    </html>`
-    fs.appendFile('./index.html', htmlEnd, (err) =>
-        err ? console.error(err) : console.log('Created end of html'));
+    console.log("made manager card");
+    return managerCard;
 }
 
-// THEN an HTML file is generated that displays a nicely formatted team roster based on user input
+const appendEngineer = () => {
+    if (engineerArr.length > 0) {
+        for (let i = 0; i < engineerArr.length; i++) {
+            const engineerCard =
+`<div class="card p-0 m-2 shadow" style="width: 18rem;">
+<div class="card-header bg-primary text-white">
+<h5 class="card-title">${engineerArr[i][0].name}</h5>
+<h6 class="card-title"><i class="fa-solid fa-glasses me-2"></i>${engineerArr[i][0].constructor.name}</h6>
+</div>
+<div class="card-body bg-light">
+<ul class="list-group list-group-flush border">
+<li class="list-group-item">ID: ${engineerArr[i][0].id}</li>
+<li class="list-group-item">Email: <a href="mailto: ${engineerArr[i][0].email}">${engineerArr[i][0].email}</a></li>
+<li class="list-group-item">GitHub: <a href="https://github.com/${engineerArr[i][0].github}" target="_blank">${engineerArr[i][0].github}</a></li>
+</ul>
+</div>
+</div>`
+            console.log("made engineer card");
+            htmlEngineer.push(engineerCard);
+        }
+        return htmlEngineer.join("");
+    }
+}
+
+const appendIntern = () => {
+    if (internArr.length > 0) {
+        for (let i = 0; i < internArr.length; i++) {
+            const internCard =
+`<div class="card p-0 m-2 shadow" style="width: 18rem;">
+<div class="card-header bg-primary text-white">
+<h5 class="card-title">${internArr[i][0].name}</h5>
+<h6 class="card-title"><i class="fa-solid fa-user-graduate me-2"></i>${internArr[i][0].constructor.name}</h6>
+</div>
+<div class="card-body bg-light">
+<ul class="list-group list-group-flush border">
+<li class="list-group-item">ID: ${internArr[i][0].id}</li>
+<li class="list-group-item">Email: <a href="mailto: ${internArr[i][0].email}">${internArr[i][0].email}</a></li>
+<li class="list-group-item">School: ${internArr[i][0].school}</li>
+</ul>
+</div>
+</div>`
+            console.log("made intern card");
+            htmlIntern.push(internCard);
+        }
+        return htmlIntern.join("");
+    }
+}
 // WHEN I click on an email address in the HTML
 // THEN my default email program opens and populates the TO field of the email with the address
 // WHEN I click on the GitHub username
 // THEN that GitHub profile opens in a new tab
-
 makeManager();
 
 
