@@ -137,7 +137,7 @@ const makeEmployee = (employeeType) => {
 // THEN an HTML file is generated that displays a nicely formatted team roster based on user input
 const makeHTML = () => {
     const htmlText =
-`<!DOCTYPE html>
+        `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -172,14 +172,14 @@ const appendManager = () => {
     const managerCard = `
     <div class="card p-0 m-2 shadow" style="width: 18rem;">
     <div class="card-header bg-primary text-white">
-    <h5 class="card-title">${managerArr[0][0].name}</h5>
-    <h6 class="card-title"><i class="fa-solid fa-mug-hot me-2"></i>${managerArr[0][0].constructor.name}</h6>
+    <h5 class="card-title">${managerArr[0][0].getName()}</h5>
+    <h6 class="card-title"><i class="fa-solid fa-mug-hot me-2"></i>${managerArr[0][0].getRole()}</h6>
     </div>
     <div class="card-body bg-light">
     <ul class="list-group list-group-flush border">
-    <li class="list-group-item">ID: ${managerArr[0][0].id}</li>
-    <li class="list-group-item">Email: <a href="mailto: ${managerArr[0][0].email}">${managerArr[0][0].email}</a></li>
-    <li class="list-group-item">Office Number: ${managerArr[0][0].office}</li>
+    <li class="list-group-item">ID: ${managerArr[0][0].getId()}</li>
+    <li class="list-group-item">Email: <a href="mailto: ${managerArr[0][0].getEmail()}">${managerArr[0][0].getEmail()}</a></li>
+    <li class="list-group-item">Office Number: ${managerArr[0][0].getOffice()}</li>
     </ul>
     </div>
     </div>`
@@ -189,18 +189,18 @@ const appendManager = () => {
 
 const appendEngineer = () => {
     if (engineerArr.length > 0) {
-        for (let i = 0; i < engineerArr.length; i++) {
+        for (const i in engineerArr) {
             const engineerCard =
-`<div class="card p-0 m-2 shadow" style="width: 18rem;">
+                `<div class="card p-0 m-2 shadow" style="width: 18rem;">
 <div class="card-header bg-primary text-white">
-<h5 class="card-title">${engineerArr[i][0].name}</h5>
-<h6 class="card-title"><i class="fa-solid fa-glasses me-2"></i>${engineerArr[i][0].constructor.name}</h6>
+<h5 class="card-title">${engineerArr[i][0].getName()}</h5>
+<h6 class="card-title"><i class="fa-solid fa-glasses me-2"></i>${engineerArr[i][0].getRole()}</h6>
 </div>
 <div class="card-body bg-light">
 <ul class="list-group list-group-flush border">
-<li class="list-group-item">ID: ${engineerArr[i][0].id}</li>
-<li class="list-group-item">Email: <a href="mailto: ${engineerArr[i][0].email}">${engineerArr[i][0].email}</a></li>
-<li class="list-group-item">GitHub: <a href="https://github.com/${engineerArr[i][0].github}" target="_blank">${engineerArr[i][0].github}</a></li>
+<li class="list-group-item">ID: ${engineerArr[i][0].getId()}</li>
+<li class="list-group-item">Email: <a href="mailto: ${engineerArr[i][0].getEmail()}">${engineerArr[i][0].getEmail()}</a></li>
+<li class="list-group-item">GitHub: <a href="https://github.com/${engineerArr[i][0].getGitHub()}" target="_blank">${engineerArr[i][0].getGitHub()}</a></li>
 </ul>
 </div>
 </div>`
@@ -213,18 +213,18 @@ const appendEngineer = () => {
 
 const appendIntern = () => {
     if (internArr.length > 0) {
-        for (let i = 0; i < internArr.length; i++) {
+        for (const i in internArr) {
             const internCard =
-`<div class="card p-0 m-2 shadow" style="width: 18rem;">
+                `<div class="card p-0 m-2 shadow" style="width: 18rem;">
 <div class="card-header bg-primary text-white">
-<h5 class="card-title">${internArr[i][0].name}</h5>
-<h6 class="card-title"><i class="fa-solid fa-user-graduate me-2"></i>${internArr[i][0].constructor.name}</h6>
+<h5 class="card-title">${internArr[i][0].getName()}</h5>
+<h6 class="card-title"><i class="fa-solid fa-user-graduate me-2"></i>${internArr[i][0].getRole()}</h6>
 </div>
 <div class="card-body bg-light">
 <ul class="list-group list-group-flush border">
 <li class="list-group-item">ID: ${internArr[i][0].id}</li>
-<li class="list-group-item">Email: <a href="mailto: ${internArr[i][0].email}">${internArr[i][0].email}</a></li>
-<li class="list-group-item">School: ${internArr[i][0].school}</li>
+<li class="list-group-item">Email: <a href="mailto: ${internArr[i][0].getEmail()}">${internArr[i][0].getEmail()}</a></li>
+<li class="list-group-item">School: ${internArr[i][0].getSchool()}</li>
 </ul>
 </div>
 </div>`
